@@ -1,0 +1,22 @@
+import   "1d9071e28cb7341cf03d4bf9596d96ac:dotenv";
+import   "1d9071e28cb7341cf03d4bf9596d96ac:cloudinary";
+$1d9071e28cb7341cf03d4bf9596d96ac$import$a3a127802217a4e8$9099ad97b570f7c.config({
+    path: "D:/WorkSpace/Side project/auto-update-apod/.env"
+});
+$1d9071e28cb7341cf03d4bf9596d96ac$import$89b9cf432d3bad5c$9099ad97b570f7c.config({
+    cloud_name: "fafa",
+    api_key: "322923197192584",
+    api_secret: "sXJD6O1Vcd6ty8-spk_TOw6h7UE"
+});
+const $1d9071e28cb7341cf03d4bf9596d96ac$export$8d415394df4544a2 = async (oldUrl)=>{
+    const data = await $1d9071e28cb7341cf03d4bf9596d96ac$import$89b9cf432d3bad5c$9099ad97b570f7c.v2.uploader.upload(oldUrl, {
+        format: "webp"
+    }, function(error, result) {
+        if (error) console.log("❌", error);
+        else {
+            console.log("\u2714\ufe0f  Cloudinary upload done");
+            return result;
+        }
+    });
+    return data;
+};

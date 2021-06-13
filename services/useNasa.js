@@ -29,5 +29,12 @@ const fetchNasa = async () => {
     title,
   }
 }
+const searchNasa = async (startDate, endDate) => {
+  const res = axios.get(
+    process.env.NASA_URL + "&start_date=" + startDate + "&end_date=" + endDate
+  )
+  const { data } = await res
+  return { data }
+}
 
-export { fetchNasa }
+export { fetchNasa, searchNasa }

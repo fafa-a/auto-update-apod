@@ -1,0 +1,50 @@
+import   "935ad2353f642606d8c7acbe388acaad:dotenv";
+import   "935ad2353f642606d8c7acbe388acaad:./services/useNasa.js";
+import   "935ad2353f642606d8c7acbe388acaad:./services/useCloudinary.js";
+import   "935ad2353f642606d8c7acbe388acaad:./services/useSupabase.js";
+import   "935ad2353f642606d8c7acbe388acaad:regenerator-runtime/runtime";
+$935ad2353f642606d8c7acbe388acaad$import$a3a127802217a4e8$9099ad97b570f7c.config();
+// setInterval(() => {
+//   const [hour, minute] = new Date().toLocaleTimeString("fr-FR").split(/:| /)
+//   const time = hour + ":" + minute
+//   if (time == "16:45") {
+//   }
+// }, 60000)
+const $935ad2353f642606d8c7acbe388acaad$var$updateDatabase = async ()=>{
+    try {
+        const { copyright: copyright , date: date , explanation: explanation , hdurl: hdurl , media_type: media_type , url: url , service_version: service_version , title: title ,  } = await $935ad2353f642606d8c7acbe388acaad$import$57515b40b9a08df3$b7253410f3489f3e();
+        const URlS = [
+            url,
+            hdurl
+        ];
+        const uploadMultipleUrl = async (args)=>{
+            let arr = [];
+            try {
+                for (const url1 of args){
+                    const data = await $935ad2353f642606d8c7acbe388acaad$import$bcb50ae907d86905$8d415394df4544a2(url1);
+                    const { secure_url: secure_url  } = data;
+                    arr.push(secure_url);
+                }
+            } catch (error) {
+                arr.push(args[1]);
+            }
+            return arr;
+        };
+        const arr = await uploadMultipleUrl(URlS);
+        const [Url, hdUrl] = arr;
+        await $935ad2353f642606d8c7acbe388acaad$import$4987bf42060047$1a7e2208a8b22cc8({
+            title: title,
+            explanation: explanation,
+            media_type: media_type,
+            Url: Url,
+            hdUrl: hdUrl,
+            service_version: service_version,
+            date: date,
+            copyright: copyright
+        });
+        console.log("\u2714\ufe0f  Element added");
+    } catch (error) {
+        console.error("❌ ", error.message);
+    }
+};
+$935ad2353f642606d8c7acbe388acaad$var$updateDatabase();

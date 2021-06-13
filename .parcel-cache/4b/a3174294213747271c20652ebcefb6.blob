@@ -1,0 +1,29 @@
+import   "3c0849c024b77fd4d1e91a9cef2b9b1e:@supabase/supabase-js";
+import   "3c0849c024b77fd4d1e91a9cef2b9b1e:dotenv";
+$3c0849c024b77fd4d1e91a9cef2b9b1e$import$a3a127802217a4e8$9099ad97b570f7c.config({
+    path: "D:/WorkSpace/Side project/auto-update-apod/.env"
+});
+const $3c0849c024b77fd4d1e91a9cef2b9b1e$var$supabaseUrl = "https://pkonpcjzjjefublfunli.supabase.co";
+const $3c0849c024b77fd4d1e91a9cef2b9b1e$var$supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMjE1MDAxNywiZXhwIjoxOTM3NzI2MDE3fQ.Jxzer6cLRhtnx7fR8--15uWyMRY3wfMZIalPgFXInZI";
+const $3c0849c024b77fd4d1e91a9cef2b9b1e$var$supabase = $3c0849c024b77fd4d1e91a9cef2b9b1e$import$4e4efcf90260048$2fcc4c6996db824d($3c0849c024b77fd4d1e91a9cef2b9b1e$var$supabaseUrl, $3c0849c024b77fd4d1e91a9cef2b9b1e$var$supabaseKey);
+const $3c0849c024b77fd4d1e91a9cef2b9b1e$export$1a7e2208a8b22cc8 = async ({ title: title , explanation: explanation , media_type: media_type , Url: Url , hdUrl: hdUrl , service_version: service_version , date: date , copyright: copyright ,  })=>{
+    const { data: data , error: error  } = await $3c0849c024b77fd4d1e91a9cef2b9b1e$var$supabase.from("apod").insert([
+        {
+            title: title,
+            explanation: explanation,
+            date: date,
+            media_type: media_type,
+            media: {
+                url: Url,
+                hdurl: hdUrl
+            },
+            copyright: copyright,
+            service_version: service_version
+        }, 
+    ]);
+    if (error) {
+        console.error(error);
+        return;
+    }
+    console.log("✔️ Supabase upload done");
+};

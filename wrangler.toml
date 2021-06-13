@@ -1,0 +1,7 @@
+name = "auto-update"
+type = 'webpack'
+account_id = 'a569d9ab4578b57a8c8c15d8ac061d34'
+route = 'broad-forest-d119.fafaa.workers.dev'
+workers_dev = true
+target_type = "parcel"
+site = {bucket = "dist",entry-point = "workers-site"}
