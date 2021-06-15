@@ -1,108 +1,25 @@
-import dotenv from 'dotenv';
-import axios from 'axios';
-import cloudinary from 'cloudinary';
-import { createClient } from '@supabase/supabase-js';
+import dotenv from "dotenv"
+import { fetchNasa } from "./services/useNasa.js"
+import { uploadCloudinary } from "./services/useCloudinary.js"
+import { insertDatabase } from "./services/useSupabase.js"
 
-dotenv.config({ path: "D:/WorkSpace/Side project/auto-update-apod/.env" });
+dotenv.config()
+const updateAtTime = setInterval(async () => {
+  const newDate = new Date().toLocaleDateString("us-Us")
+  const [hour, minute] = new Date().toLocaleTimeString("us-US").split(/:| /)
+  const time = hour + ":" + minute
 
-const fetchNasa = async () => {
-  const res = axios.get(process.env.NASA_URL);
-  const {
-    data: {
-      copyright,
-      date,
-      explanation,
-      hdurl,
-      media_type,
-      service_version,
-      title,
-      url,
-    },
-  } = await res;
+  const day = newDate.slice(0, 2)
+  const month = newDate.slice(3, 5)
+  const year = newDate.slice(6, 11)
+  const tomorrow = year + "-" + month + "-" + day
 
-  return {
-    copyright,
-    date,
-    explanation,
-    hdurl,
-    media_type,
-    url,
-    service_version,
-    title,
+  const { date } = await fetchNasa()
+
+  if (date === tomorrow && time >= "06:10" && time <= "06:15") {
+    updateDatabase()
   }
-};
-
-dotenv.config({ path: "D:/WorkSpace/Side project/auto-update-apod/.env" });
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-const uploadCloudinary = async (oldUrl) => {
-  const data = await cloudinary.v2.uploader.upload(
-    oldUrl,
-    {
-      format: "webp",
-    },
-    function (error, result) {
-      if (error) {
-        console.log("❌", error);
-      } else {
-        console.log("✔️ " + " Cloudinary upload done");
-        return result
-      }
-    }
-  );
-  return data
-};
-
-dotenv.config({ path: "D:/WorkSpace/Side project/auto-update-apod/.env" });
-
-const supabaseUrl = "https://pkonpcjzjjefublfunli.supabase.co";
-const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-const insertDatabase = async ({
-  title,
-  explanation,
-  media_type,
-  Url,
-  hdUrl,
-  service_version,
-  date,
-  copyright,
-}) => {
-  const { data, error } = await supabase.from("apod").insert([
-    {
-      title: title,
-      explanation: explanation,
-      date: date,
-      media_type: media_type,
-      media: {
-        url: Url,
-        hdurl: hdUrl,
-      },
-      copyright: copyright,
-      service_version: service_version,
-    },
-  ]);
-  if (error) {
-    console.error(error);
-    return
-  }
-  console.log("✔️ Supabase upload done");
-};
-
-dotenv.config();
-// setInterval(() => {
-//   const [hour, minute] = new Date().toLocaleTimeString("fr-FR").split(/:| /)
-//   const time = hour + ":" + minute
-//   if (time == "06:30") {
-//     updateDatabase()
-//   }
-// }, 60000)
+}, 60000 * 5)
 
 const updateDatabase = async () => {
   try {
@@ -115,25 +32,29 @@ const updateDatabase = async () => {
       url,
       service_version,
       title,
-    } = await fetchNasa();
-    const URlS = [url, hdurl];
+    } = await fetchNasa()
+    const URlS = [url, hdurl]
 
     const uploadMultipleUrl = async (args) => {
-      let arr = [];
+      const arr = []
       try {
-        for (const url of args) {
-          const data = await uploadCloudinary(url);
-          const { secure_url } = data;
-          arr.push(secure_url);
+        if (media_type == "video") {
+          arr.push(args[0])
+        } else {
+          for (const url of args) {
+            const data = await uploadCloudinary(url)
+            const { secure_url } = data
+            arr.push(secure_url)
+          }
         }
       } catch (error) {
-        arr.push(args[1]);
+        console.error(error)
       }
       return arr
-    };
+    }
 
-    const arr = await uploadMultipleUrl(URlS);
-    const [Url, hdUrl] = arr;
+    const arr = await uploadMultipleUrl(URlS)
+    const [Url, hdUrl] = arr
 
     await insertDatabase({
       title: title,
@@ -144,10 +65,10 @@ const updateDatabase = async () => {
       service_version: service_version,
       date: date,
       copyright: copyright,
-    });
-    console.log("✔️ " + " Element added");
+    })
+    console.log("✔️ " + " Element added")
   } catch (error) {
-    console.error("❌ ", error.message);
+    console.error("❌ ", error.message)
   }
-};
-updateDatabase();
+}
+// updateDatabase()
