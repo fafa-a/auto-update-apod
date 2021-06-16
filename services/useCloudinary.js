@@ -19,7 +19,7 @@ const uploadCloudinary = async (oldUrl) => {
       if (error) {
         console.log("❌", error)
       } else {
-        console.log("✔️ " + " Cloudinary upload done")
+        console.log("✔️ Cloudinary upload done")
         return result
       }
     }

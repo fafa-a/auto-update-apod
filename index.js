@@ -66,7 +66,7 @@ const updateDatabase = async () => {
       date: date,
       copyright: copyright,
     })
-    console.log("✔️ " + " Element added")
+    console.log("✔️ Element added", date, time)
   } catch (error) {
     console.error("❌ ", error.message)
   }
