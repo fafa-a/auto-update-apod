@@ -16,7 +16,7 @@ setInterval(async () => {
 
   const { date } = await fetchNasa()
 
-  if (date === tomorrow && time >= "06:10" && time <= "06:15") {
+  if (date === tomorrow && time >= "06:10" && time < "06:15") {
     updateDatabase(time)
   }
 }, 60000 * 5)
