@@ -4,6 +4,7 @@ import { uploadCloudinary } from "./services/useCloudinary.js"
 import { insertDatabase } from "./services/useSupabase.js"
 
 dotenv.config()
+
 setInterval(async () => {
   const newDate = new Date().toLocaleDateString("us-Us")
   const [hour, minute] = new Date().toLocaleTimeString("us-US").split(/:| /)
@@ -15,10 +16,10 @@ setInterval(async () => {
   const tomorrow = year + "-" + month + "-" + day
 
   const { date } = await fetchNasa()
-
   if (date === tomorrow && time >= "06:10" && time < "06:15") {
     updateDatabase(time)
   }
+  console.log("time: ", time)
 }, 60000 * 5)
 
 const updateDatabase = async (time) => {
