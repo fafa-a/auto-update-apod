@@ -16,7 +16,10 @@ setInterval(async () => {
   const tomorrow = year + "-" + month + "-" + day
 
   const { date } = await fetchNasa()
-  if (date === tomorrow && time >= "04:10" && time < "04:15") {
+  // if (date === tomorrow && time >= "04:10" && time < "04:15") {
+  //   updateDatabase(time)
+  // }
+  if (time >= "10:00" && time < "10:05") {
     updateDatabase(time)
   }
   console.log("time: ", time)
