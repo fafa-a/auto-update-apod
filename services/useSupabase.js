@@ -38,6 +38,6 @@ const insertDatabase = async ({
   console.log("✔️ Supabase upload done")
 }
 
-// const { data, error } = await supabase.from("apod").delete().eq("id", 99)
+//  const { data, error } = await supabase.from("apod").delete().eq("id", 117)
 
 export { insertDatabase }
