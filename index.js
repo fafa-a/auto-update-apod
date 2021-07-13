@@ -5,25 +5,25 @@ import { insertDatabase } from "./services/useSupabase.js"
 
 dotenv.config()
 
-// setInterval(async () => {
-//   const newDate = new Date().toLocaleDateString("fr-FR")
-//   const [hour, minute] = new Date().toLocaleTimeString("fr-FR").split(/:| /)
-//   const time = hour + ":" + minute
+setInterval(async () => {
+  const newDate = new Date().toLocaleDateString("us-Us")
+  const [hour, minute] = new Date().toLocaleTimeString("us-US").split(/:| /)
+  const time = hour + ":" + minute
 
-//   const day = newDate.slice(0, 2)
-//   const month = newDate.slice(3, 5)
-//   const year = newDate.slice(6, 11)
-//   const tomorrow = year + "-" + month + "-" + day
+  const day = newDate.slice(0, 2)
+  const month = newDate.slice(3, 5)
+  const year = newDate.slice(6, 11)
+  const tomorrow = year + "-" + month + "-" + day
 
-//   const { date } = await fetchNasa()
-//   // if (date === tomorrow && time >= "04:10" && time < "04:15") {
-//   //   updateDatabase(time)
-//   // }
-//   if (time >= "03:40" && time < "03:45") {
-//     updateDatabase(time)
-//   }
-//   console.log("time: ", time)
-// }, 60000 * 5)
+  const { date } = await fetchNasa()
+  // if (date === tomorrow && time >= "04:10" && time < "04:15") {
+  //   updateDatabase(time)
+  // }
+  if (time >= "04:10" && time < "04:15") {
+    updateDatabase(time)
+  }
+  console.log("time: ", time)
+}, 60000 * 5)
 
 const updateDatabase = async (time) => {
   try {
@@ -75,4 +75,4 @@ const updateDatabase = async (time) => {
     console.error("❌ ", error.message)
   }
 }
-updateDatabase()
+// updateDatabase()
