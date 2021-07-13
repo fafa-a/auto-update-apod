@@ -8,7 +8,16 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
+// const cloudy = async () => {
+//   const res = await cloudinary.v2.api.resources("image")
+//   const resources = await res
+//   console.log(resources)
+// }
 
+// cloudy()
+// cloudinary.v2.api.resource("image", function (error, result) {
+//   console.log(result)
+// })
 const uploadCloudinary = async (oldUrl) => {
   const data = await cloudinary.v2.uploader.upload(
     oldUrl,

@@ -6,7 +6,7 @@ import { insertDatabase } from "./services/useSupabase.js"
 dotenv.config()
 
 setInterval(async () => {
-  const newDate = new Date().toLocaleDateString("us-Us")
+  const newDate = new Date().toLocaleDateString("us-US")
   const [hour, minute] = new Date().toLocaleTimeString("us-US").split(/:| /)
   const time = hour + ":" + minute
 
@@ -19,7 +19,7 @@ setInterval(async () => {
   // if (date === tomorrow && time >= "04:10" && time < "04:15") {
   //   updateDatabase(time)
   // }
-  if (time >= "04:10" && time < "04:15") {
+  if (time >= "15:35" && time < "15:40") {
     updateDatabase(time)
   }
   console.log("time: ", time)
