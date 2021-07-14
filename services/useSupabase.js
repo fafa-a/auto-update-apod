@@ -60,6 +60,6 @@ const deleteOldItems = async () => {
     console.error("❌ Problem on deleted in supabase", error)
   }
 }
-//  const { data, error } = await supabase.from("apod").delete().eq("id", 119)
+// const { data, error } = await supabase.from("apod").delete().eq("id", 120)
 
 export { insertDatabase }
