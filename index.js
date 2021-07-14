@@ -72,4 +72,4 @@ const updateDatabase = async (time) => {
     console.error("❌ ", error.message)
   }
 }
-// updateDatabase()
+updateDatabase()
