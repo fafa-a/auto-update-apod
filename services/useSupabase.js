@@ -36,8 +36,30 @@ const insertDatabase = async ({
     return
   }
   console.log("✔️ Supabase upload done")
+  deleteOldItems()
 }
 
-//  const { data, error } = await supabase.from("apod").delete().eq("id", 117)
+const [date, month, year] = new Date().toLocaleDateString("fr-FR").split("/")
+const lastMonth = month - 1
+const numMonth = lastMonth < 10 ? "0" + lastMonth : lastMonth
+const last31Days = `${year + "-" + numMonth + "-" + date}`
+
+const deleteOldItems = async () => {
+  const { data: apod, error } = await supabase
+    .from("apod")
+    .delete("*")
+    .lt("date", last31Days)
+  if (apod) {
+    console.log(
+      "✔️ Element ",
+      apod.id + " " + apod.date,
+      " deleted in supabase"
+    )
+  }
+  if (error) {
+    console.error("❌ Problem on deleted in supabase", error)
+  }
+}
+//  const { data, error } = await supabase.from("apod").delete().eq("id", 119)
 
 export { insertDatabase }
