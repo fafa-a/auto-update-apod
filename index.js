@@ -1,7 +1,10 @@
 import dotenv from "dotenv"
 import { fetchNasa } from "./services/useNasa.js"
-import { uploadCloudinary } from "./services/useCloudinary.js"
-import { insertDatabase } from "./services/useSupabase.js"
+import {
+  uploadCloudinary,
+  deleteOdlPictures,
+} from "./services/useCloudinary.js"
+import { insertDatabase, deleteOldItems } from "./services/useSupabase.js"
 
 dotenv.config()
 console.log("🚀  Script started")
@@ -68,6 +71,8 @@ const updateDatabase = async (time) => {
       copyright: copyright,
     })
     console.log("✔️ Element added", date, time)
+    await deleteOldItems()
+    deleteOdlPictures()
   } catch (error) {
     console.error("❌ ", error.message)
   }

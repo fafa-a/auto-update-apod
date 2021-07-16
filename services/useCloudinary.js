@@ -8,7 +8,7 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
- 
+
 const [date, month, year] = new Date().toLocaleDateString("fr-FR").split("/")
 const lastMonth = month - 1
 const numMonth = lastMonth < 10 ? "0" + lastMonth : lastMonth
@@ -30,7 +30,7 @@ const deleteOdlPictures = () => {
         item.public_id,
         function (error, result) {
           if (result) {
-            console.log("✔️ Old picture deleted", result.deleted)
+            console.log("✔️  Old picture deleted", result.deleted)
           }
           if (error) {
             console.error("❌ Problem on deleted", error)
@@ -60,4 +60,4 @@ const uploadCloudinary = async (oldUrl) => {
   return data
 }
 
-export { uploadCloudinary }
+export { uploadCloudinary, deleteOdlPictures }
