@@ -36,7 +36,7 @@ const insertDatabase = async ({
     return
   }
   console.log("✔️ Supabase upload done")
-  deleteOldItems()
+  await deleteOldItems()
 }
 
 const [date, month, year] = new Date().toLocaleDateString("fr-FR").split("/")
@@ -52,7 +52,7 @@ const deleteOldItems = async () => {
   if (apod) {
     console.log(
       "✔️ Element ",
-      apod.id + " " + apod.date,
+      data.id + " " + data.date,
       " deleted in supabase"
     )
   }
