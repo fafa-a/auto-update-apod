@@ -51,7 +51,7 @@ const deleteOldItems = async () => {
   if (apod) {
     console.log(
       "✔️ Element ",
-      data.id + " " + data.date,
+      apod.id + " " + apod.date,
       " deleted in supabase"
     )
   }

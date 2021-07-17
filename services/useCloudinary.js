@@ -56,7 +56,6 @@ const uploadCloudinary = async (oldUrl) => {
       }
     }
   )
-  deleteOdlPictures()
   return data
 }
 
