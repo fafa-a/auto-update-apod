@@ -8,21 +8,21 @@ import { insertDatabase, deleteOldItems } from "./services/useSupabase.js"
 
 dotenv.config()
 console.log("🚀  Script started")
-// setInterval(async () => {
-//   const newDate = new Date().toLocaleDateString("us-Us")
-//   const [hour, minute] = new Date().toLocaleTimeString("fr-FR").split(/: /)
-//   const time = hour + ":" + minute
+setInterval(async () => {
+  const newDate = new Date().toLocaleDateString("us-Us")
+  const [hour, minute] = new Date().toLocaleTimeString("fr-FR").split(/: /)
+  const time = `${hour}:${minute}`
 
-//   const day = newDate.slice(0, 2)
-//   const month = newDate.slice(3, 5)
-//   const year = newDate.slice(6, 11)
+  const day = newDate.slice(0, 2)
+  const month = newDate.slice(3, 5)
+  const year = newDate.slice(6, 11)
 
-//   // const { data } = await fetchNasa()
+  // const { data } = await fetchNasa()
 
-//   if (time >= "04:10" && time < "04:15") {
-//     updateDatabase(time)
-//   }
-// }, 60000 * 5)
+  if (time >= "04:10" && time < "04:15") {
+    updateDatabase(time)
+  }
+}, 60000 * 5)
 
 const updateDatabase = async (time) => {
   try {
@@ -57,6 +57,7 @@ const updateDatabase = async (time) => {
     }
 
     const arr = await uploadMultipleUrl(URLS)
+    console.log({ arr })
     const [Url, hdUrl] = arr
 
     await insertDatabase({

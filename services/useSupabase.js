@@ -12,14 +12,14 @@ const insertDatabase = async ({
   Url,
   hdUrl,
   service_version,
-  dateDB,
+  date,
   copyright,
 }) => {
   const { error } = await supabase.from("apod").insert([
     {
       title,
       explanation,
-      dateDB,
+      date,
       media_type,
       media: {
         url: Url,
@@ -36,16 +36,22 @@ const insertDatabase = async ({
   console.log("✔️ Supabase upload done")
 }
 
-const [date, month, year] = new Date().toLocaleDateString("fr-FR").split("/")
-const lastMonth = month - 1
+let [date, month, year] = new Date().toLocaleDateString("fr-FR").split("/")
+let lastMonth = month - 1
+if (lastMonth === 0) {
+  lastMonth = 12
+  year -= 1
+}
 const numMonth = lastMonth < 10 ? `0${lastMonth}` : lastMonth
 const last31Days = `${year}-${numMonth}-${date}`
+console.log({ last31Days })
 
 const deleteOldItems = async () => {
   const { data: apod, error } = await supabase
     .from("apod")
     .delete("*")
     .lt("date", last31Days)
+  console.log({ apod })
   if (apod) {
     console.log(
       "✔️ Element ",
