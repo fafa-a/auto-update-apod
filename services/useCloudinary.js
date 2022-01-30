@@ -11,16 +11,15 @@ cloudinary.config({
 
 const [date, month, year] = new Date().toLocaleDateString("fr-FR").split("/")
 const lastMonth = month - 1
-const numMonth = lastMonth < 10 ? "0" + lastMonth : lastMonth
-const last31Days = `${year + "-" + numMonth + "-" + date}`
+const numMonth = lastMonth < 10 ? `0${lastMonth}` : lastMonth
+const last31Days = `${year}-${numMonth}-${date}`
 
-const findRessource = async () => {
-  const res = await cloudinary.v2.api.resources({
+const findRessource = async () =>
+  cloudinary.v2.api.resources({
     type: "upload",
     max_results: 200,
   })
-  return res
-}
+
 const { resources } = await findRessource()
 
 const deleteOdlPictures = () => {
@@ -41,8 +40,8 @@ const deleteOdlPictures = () => {
   }
 }
 
-const uploadCloudinary = async (oldUrl) => {
-  const data = await cloudinary.v2.uploader.upload(
+const uploadCloudinary = async (oldUrl) =>
+  cloudinary.v2.uploader.upload(
     oldUrl,
     {
       format: "webp",
@@ -56,7 +55,5 @@ const uploadCloudinary = async (oldUrl) => {
       }
     }
   )
-  return data
-}
 
 export { uploadCloudinary, deleteOdlPictures }

@@ -8,22 +8,21 @@ import { insertDatabase, deleteOldItems } from "./services/useSupabase.js"
 
 dotenv.config()
 console.log("🚀  Script started")
-setInterval(async () => {
-  const newDate = new Date().toLocaleDateString("us-Us")
-  const [hour, minute] = new Date().toLocaleTimeString("fr-FR").split(/:| /)
-  const time = hour + ":" + minute
+// setInterval(async () => {
+//   const newDate = new Date().toLocaleDateString("us-Us")
+//   const [hour, minute] = new Date().toLocaleTimeString("fr-FR").split(/: /)
+//   const time = hour + ":" + minute
 
-  const day = newDate.slice(0, 2)
-  const month = newDate.slice(3, 5)
-  const year = newDate.slice(6, 11)
-  const tomorrow = year + "-" + month + "-" + day
+//   const day = newDate.slice(0, 2)
+//   const month = newDate.slice(3, 5)
+//   const year = newDate.slice(6, 11)
 
-  const { date } = await fetchNasa()
+//   // const { data } = await fetchNasa()
 
-  if (time >= "04:10" && time < "04:15") {
-    updateDatabase(time)
-  }
-}, 60000 * 5)
+//   if (time >= "04:10" && time < "04:15") {
+//     updateDatabase(time)
+//   }
+// }, 60000 * 5)
 
 const updateDatabase = async (time) => {
   try {
@@ -61,14 +60,14 @@ const updateDatabase = async (time) => {
     const [Url, hdUrl] = arr
 
     await insertDatabase({
-      title: title,
-      explanation: explanation,
-      media_type: media_type,
+      title,
+      explanation,
+      media_type,
       Url,
       hdUrl,
-      service_version: service_version,
-      date: date,
-      copyright: copyright,
+      service_version,
+      date,
+      copyright,
     })
     console.log("✔️ Element added", date, time)
     await deleteOldItems()

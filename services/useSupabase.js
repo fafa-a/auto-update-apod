@@ -14,21 +14,21 @@ const insertDatabase = async ({
   Url,
   hdUrl,
   service_version,
-  date,
+  dateDB,
   copyright,
 }) => {
-  const { data, error } = await supabase.from("apod").insert([
+  const {  error } = await supabase.from("apod").insert([
     {
-      title: title,
-      explanation: explanation,
-      date: date,
-      media_type: media_type,
+      title,
+      explanation,
+      dateDB,
+      media_type,
       media: {
         url: Url,
         hdurl: hdUrl,
       },
-      copyright: copyright,
-      service_version: service_version,
+      copyright,
+      service_version,
     },
   ])
   if (error) {
@@ -40,8 +40,8 @@ const insertDatabase = async ({
 
 const [date, month, year] = new Date().toLocaleDateString("fr-FR").split("/")
 const lastMonth = month - 1
-const numMonth = lastMonth < 10 ? "0" + lastMonth : lastMonth
-const last31Days = `${year + "-" + numMonth + "-" + date}`
+const numMonth = lastMonth < 10 ? `0${lastMonth}` : lastMonth
+const last31Days = `${year}-${numMonth}-${date}`
 
 const deleteOldItems = async () => {
   const { data: apod, error } = await supabase
@@ -51,7 +51,7 @@ const deleteOldItems = async () => {
   if (apod) {
     console.log(
       "✔️ Element ",
-      apod.id + " " + apod.date,
+      `${apod.id} ${apod.date}`,
       " deleted in supabase"
     )
   }
