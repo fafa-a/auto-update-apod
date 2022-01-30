@@ -44,14 +44,12 @@ if (lastMonth === 0) {
 }
 const numMonth = lastMonth < 10 ? `0${lastMonth}` : lastMonth
 const last31Days = `${year}-${numMonth}-${date}`
-console.log({ last31Days })
 
 const deleteOldItems = async () => {
   const { data: apod, error } = await supabase
     .from("apod")
     .delete("*")
     .lt("date", last31Days)
-  console.log({ apod })
   if (apod) {
     console.log(
       "✔️ Element ",
