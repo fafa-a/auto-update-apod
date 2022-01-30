@@ -1,7 +1,5 @@
-import dotenv from "dotenv"
+import "dotenv/config"
 import axios from "axios"
-
-dotenv.config({ path: "D:/WorkSpace/Side project/auto-update-apod/.env" })
 
 const fetchNasa = async () => {
   const res = axios.get(process.env.NASA_URL)

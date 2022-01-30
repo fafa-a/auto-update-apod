@@ -1,7 +1,5 @@
 import { createClient } from "@supabase/supabase-js"
-import dotenv from "dotenv"
-
-dotenv.config({ path: "D:/WorkSpace/Side project/auto-update-apod/.env" })
+import "dotenv/config"
 
 const supabaseUrl = "https://pkonpcjzjjefublfunli.supabase.co"
 const supabaseKey = process.env.SUPABASE_KEY
@@ -17,7 +15,7 @@ const insertDatabase = async ({
   dateDB,
   copyright,
 }) => {
-  const {  error } = await supabase.from("apod").insert([
+  const { error } = await supabase.from("apod").insert([
     {
       title,
       explanation,

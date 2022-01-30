@@ -1,7 +1,5 @@
-import dotenv from "dotenv"
+import "dotenv/config"
 import cloudinary from "cloudinary"
-
-dotenv.config({ path: "D:/WorkSpace/Side project/auto-update-apod/.env" })
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
