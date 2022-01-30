@@ -36,27 +36,27 @@ const updateDatabase = async (time) => {
       service_version,
       title,
     } = await fetchNasa()
-    const URlS = [url, hdurl]
+    const URLS = [url, hdurl]
 
     const uploadMultipleUrl = async (args) => {
-      const arr = []
+      const tmp = []
       try {
         if (media_type == "video") {
-          arr.push(args[0])
+          tmp.push(args[0])
         } else {
-          for (const url of args) {
-            const data = await uploadCloudinary(url)
+          for (const items of args) {
+            const data = await uploadCloudinary(items)
             const { secure_url } = data
-            arr.push(secure_url)
+            tmp.push(secure_url)
           }
         }
       } catch (error) {
         console.error(error)
       }
-      return arr
+      return tmp
     }
 
-    const arr = await uploadMultipleUrl(URlS)
+    const arr = await uploadMultipleUrl(URLS)
     const [Url, hdUrl] = arr
 
     await insertDatabase({
