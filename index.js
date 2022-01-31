@@ -19,7 +19,7 @@ setInterval(async () => {
 
   // const { data } = await fetchNasa()
 
-  if (time >= "04:10" && time < "04:15") {
+  if (time >= "05:10" && time < "05:15") {
     updateDatabase(time)
   }
 }, 60000 * 5)
@@ -77,3 +77,4 @@ const updateDatabase = async (time) => {
     console.error("❌ from index ", error.message)
   }
 }
+updateDatabase()
