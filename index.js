@@ -77,4 +77,4 @@ const updateDatabase = async (time) => {
     console.error("❌ from index ", error.message)
   }
 }
-updateDatabase()
+
